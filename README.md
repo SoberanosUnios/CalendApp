@@ -5,3 +5,5 @@
 2. Todos los archivos deben estar en una misma carpeta para que la página funcione como corresponde.
 
 3. Se exporta como app en el celular mediante la URL del Github, siguiendo las instrucciones anteriores.
+
+4. Calendario (4) es la verdad de la milanesa
