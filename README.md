@@ -6,4 +6,4 @@
 
 3. Se exporta como app en el celular mediante la URL del Github, siguiendo las instrucciones anteriores.
 
-4. Calendario (4) es la verdad de la milanesa
+4. Calendario (5) es la verdad de la milanesa
