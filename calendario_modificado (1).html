@@ -2661,6 +2661,89 @@ function resetData() {
 
 renderAll();
 </script>
+  <!-- ===== PATCH: PDF + IMÁGENES PARA NOTAS ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  window.exportNoteToPDF = function(noteId) {
+    const note = document.querySelector(`[data-note-id="${noteId}"]`);
+
+    if (!note) {
+      alert('No se encontró la nota');
+      return;
+    }
+
+    const opt = {
+      margin: 0.5,
+      filename: 'nota-' + noteId + '.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(note).save();
+  };
+
+  window.insertImageIntoNote = function(input, noteId) {
+    const file = input.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+      const note = noteSections.find(n => n.id === noteId);
+
+      if (!note) return;
+
+      if (!note.images) note.images = [];
+
+      note.images.push(e.target.result);
+
+      saveData();
+      renderNotes();
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+});
+</script>
+
+<!-- ===== BOTONES PARA CADA NOTA ===== -->
+
+<!-- PDF -->
+<button onclick="exportNoteToPDF(NOTE_ID)">
+  Descargar PDF
+</button>
+
+<!-- IMÁGENES -->
+<label style="cursor:pointer">
+  Agregar imagen
+  <input
+    type="file"
+    accept="image/*"
+    style="display:none"
+    onchange="insertImageIntoNote(this, NOTE_ID)"
+  >
+</label>
+
+<!-- ===== RENDER DE IMÁGENES ===== -->
+
+<!-- Colocar dentro del HTML de renderizado de la nota -->
+
+${(sec.images || []).map(img => `
+  <img
+    src="${img}"
+    style="
+      max-width:100%;
+      border-radius:10px;
+      margin-top:10px;
+      display:block;
+    "
+  >
+`).join('')}
 </body>
 </html>
 let expandingNoteId = null;
