@@ -6,6 +6,5 @@
 
 3. Se exporta como app en el celular mediante la URL del Github, siguiendo las instrucciones anteriores.
 
-4. Calendario (8) es la verdad de la milanesa
+4. Calendario (10) es la verdad de la milanesa
 
-5. Calendario (9) tiene flashcards 
